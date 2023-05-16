@@ -45,7 +45,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/satistaftion_count"
+        android:id="@+id/satisfaction_count"
         android:layout_width="124dp"
         android:layout_height="63dp"
         android:layout_marginStart="44dp"
@@ -67,5 +67,16 @@
         android:text="🎤"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_text_view" />
+
+    <TextView
+        android:id="@+id/date_text_view"
+        android:layout_width="183dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="28dp"
+        android:text="default"
+        android:textSize="34sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

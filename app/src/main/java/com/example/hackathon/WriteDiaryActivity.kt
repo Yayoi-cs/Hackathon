@@ -1,5 +1,6 @@
 package com.example.hackathon
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
@@ -8,8 +9,12 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.progressindicator.CircularProgressIndicator
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class WriteDiaryActivity : AppCompatActivity() {
 
@@ -19,7 +24,12 @@ class WriteDiaryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_write_diary)
 
-        val satisfactionCount = findViewById<EditText>(R.id.satistaftion_count)
+        val satisfactionCount = findViewById<EditText>(R.id.satisfaction_count)
+        val dateView = findViewById<TextView>(R.id.date_text_view)
+        val currentDate = Calendar.getInstance().time
+        val dateFormat = SimpleDateFormat("yyyy/MM/dd(EEE)", Locale.getDefault())
+        val formattedDate = dateFormat.format(currentDate)
+        dateView.text = formattedDate
 
         val editText = findViewById<EditText>(R.id.edit_text_view)
         editText.addTextChangedListener(object: TextWatcher {
@@ -38,11 +48,14 @@ class WriteDiaryActivity : AppCompatActivity() {
 
         val completeButton = findViewById<Button>(R.id.complete_button)
         completeButton.setOnClickListener {
-//            val intent = Intent(this, WatchActivity::class.java)
-//            startActivity(intent)
-            Log.d("Write", ":a:" + editText.text.toString())
-            Log.d("Write", ":b:" + satisfactionCount.text.toString())
+            val intent = Intent(this, WatchActivity::class.java)
+            intent.putExtra("TEXT", editText.text.toString())
+            intent.putExtra("SATISFACTION", satisfactionCount.text.toString())
+            startActivity(intent)
+//            Log.d("Write", ":a:" + editText.text.toString())
+//            Log.d("Write", ":b:" + satisfactionCount.text.toString())
         }
+
 
 //        val progressIndicator = findViewById<CircularProgressIndicator>(R.id.progressIndicator)
 //        val maxProgress = 100 // プログレスバーの最大値
