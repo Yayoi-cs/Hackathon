@@ -13,19 +13,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val button = findViewById<Button>(R.id.button)
-        var databaseOperation = DatabaseOperation(this)
-        databaseOperation.insertData(2023,5,17,"Mon","メインサンプルテキスト","example/example",95,"a")
-        /*
-        val cursor = databaseOperation.getDataByPrimarykey(1)
-        if(cursor != null && cursor.moveToNext()){
-            val mainText = cursor.getString(cursor.getColumnIndex(databaseopenhelper.COLUMN_MAIN_TEXT))
-            val button = findViewById<Button>(R.id.Button_sample)
-            if(mainText != null){
-                button.text = mainText.toString()
-            }
-            cursor.close()
-        }
-        */
+
         button.setOnClickListener {
             val intent = Intent(this, ChatActivity::class.java)
             startActivity(intent)
