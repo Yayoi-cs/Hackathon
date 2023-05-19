@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".WriteDiaryActivity">
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:backgroundTint="@color/component_background"
+        android:textColor="@color/component_foreground"
+        android:text="戻る"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.141"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/complete_button"
+        android:layout_width="121dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="40dp"
+        android:backgroundTint="@color/component_background"
+        android:text="完成"
+        android:textColor="@color/component_foreground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.613"
+        app:layout_constraintStart_toEndOf="@+id/back_button" />
+
+    <EditText
+        android:id="@+id/edit_text_view"
+        android:layout_width="341dp"
+        android:layout_height="275dp"
+        android:layout_marginTop="108dp"
+        android:background="@drawable/textview_background"
+        android:elegantTextHeight="false"
+        android:ems="10"
+        android:hint="今日あった出来事をここに書こう！"
+        android:inputType="text|textMultiLine"
+        android:lines="12"
+        android:maxLines="1"
+        android:padding="10dp"
+        android:paddingLeft="10dp"
+        android:text=""
+        android:textColor="#000000"
+        android:textColorHint="#6E6E6E"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/happiness_view"
+        android:layout_width="124dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginBottom="176dp"
+        android:digits="0123456789"
+        android:ems="3"
+        android:inputType="number"
+        android:maxLength="3"
+        android:textColor="#020202"
+        android:text="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/date_text_view"
+        android:layout_width="183dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="28dp"
+        android:text="default"
+        android:textColor="#6E6E6E"
+        android:textSize="34sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/mic_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="32dp"
+        android:clickable="true"
+        app:backgroundTint="@color/component_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_view"
+        app:maxImageSize="46dp"
+        app:srcCompat="@android:drawable/ic_btn_speak_now"
+        app:tint="@color/component_foreground" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,11 +1,17 @@
 package com.example.hackathon
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.content.Intent
 import com.example.hackathon.database_operation.DatabaseOperation
 import com.example.hackathon.database_operation.databaseopenhelper
+import android.widget.Button
+import android.widget.TextView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.example.soundinput.SpeechRecognizerManager
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,5 +26,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+
+        val writeDiaryButton = findViewById<Button>(R.id.write_diary_button)
+        writeDiaryButton.setOnClickListener{
+            val intent = Intent(this, WriteDiaryActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
