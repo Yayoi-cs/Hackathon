@@ -1,38 +1,62 @@
 package com.example.hackathon
 
+import android.Manifest
 import android.content.Intent
-import android.graphics.Color
+import android.content.pm.PackageManager
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.progressindicator.CircularProgressIndicator
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.example.soundinput.SpeechRecognizerManager
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
 class WriteDiaryActivity : AppCompatActivity() {
 
+    private lateinit var speechRecognizerManager: SpeechRecognizerManager
+    private val PERMISSIONS_RECORD_AUDIO = 1000
     private var texts: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_write_diary)
 
+        val granted = ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
+        if (granted != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), PERMISSIONS_RECORD_AUDIO)
+        }
+
+        supportActionBar?.setTitle("日記を書く")
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(this, R.color.component_background)))
+
         val satisfactionCount = findViewById<EditText>(R.id.satisfaction_count)
+
+        // 日付関係
         val dateView = findViewById<TextView>(R.id.date_text_view)
         val currentDate = Calendar.getInstance().time
         val dateFormat = SimpleDateFormat("yyyy/MM/dd(EEE)", Locale.getDefault())
         val formattedDate = dateFormat.format(currentDate)
+        val calendar = Calendar.getInstance()
+        calendar.time = currentDate
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        val dayOfWeek = SimpleDateFormat("EEE", Locale.ENGLISH).format(currentDate)
+
         dateView.text = formattedDate
 
+        // 本文入力するやつ
         val editText = findViewById<EditText>(R.id.edit_text_view)
-        editText.addTextChangedListener(object: TextWatcher {
+        editText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 texts = p0.toString()
                 Log.d("MainActivity", ":a:" + texts)
@@ -42,19 +66,34 @@ class WriteDiaryActivity : AppCompatActivity() {
         })
 
         val backButton = findViewById<Button>(R.id.back_button)
-        backButton.setOnClickListener{
+        backButton.setOnClickListener {
             finish()
         }
 
         val completeButton = findViewById<Button>(R.id.complete_button)
         completeButton.setOnClickListener {
+
+//            var databaseOperation = DatabaseOperation(this)
+//            databaseOperation.insertData(year,month,day,dayOfWeek,texts,"example/example",satisfactionCount,"a")
+
             val intent = Intent(this, WatchActivity::class.java)
             intent.putExtra("TEXT", editText.text.toString())
             intent.putExtra("SATISFACTION", satisfactionCount.text.toString())
+            intent.putExtra("DATE", formattedDate)
+            intent.putExtra("YEAR", year)
+            intent.putExtra("MONTH", month)
+            intent.putExtra("DAY", day)
             startActivity(intent)
 //            Log.d("Write", ":a:" + editText.text.toString())
 //            Log.d("Write", ":b:" + satisfactionCount.text.toString())
         }
+
+        val micButton = findViewById<FloatingActionButton>(R.id.mic_button)
+        micButton.setOnClickListener {
+
+        }
+
+        speechRecognizerManager = SpeechRecognizerManager(micButton, editText)
 
 
 //        val progressIndicator = findViewById<CircularProgressIndicator>(R.id.progressIndicator)
@@ -71,5 +110,6 @@ class WriteDiaryActivity : AppCompatActivity() {
 
 
     }
+
 
 }

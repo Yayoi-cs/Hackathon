@@ -29,7 +29,7 @@ class SoundActivity : AppCompatActivity() {
         var main_text_view = findViewById<TextView>(R.id.text_main)
         var display_button = findViewById<Button>(R.id.disp_button)
 
-        speechRecognizerManager = SpeechRecognizerManager(recognize_start_button, recognize_text_view)
+//        speechRecognizerManager = SpeechRecognizerManager(recognize_start_button, recognize_text_view)
 
         val nextButton = findViewById<Button>(R.id.btnBack)
         nextButton.setOnClickListener{
