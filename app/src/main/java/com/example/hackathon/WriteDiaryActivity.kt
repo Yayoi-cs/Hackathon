@@ -23,7 +23,7 @@ import java.util.Locale
 class WriteDiaryActivity : AppCompatActivity() {
 
     private lateinit var speechRecognizerManager: SpeechRecognizerManager
-    private val PERMISSIONS_RECORD_AUDIO = 1000
+    private val PERMISSIONS_RECORD_AUDIO = 100
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -27,9 +27,6 @@
             android:name=".WriteDiaryActivity"
             android:exported="false" />
         <activity
-            android:name=".SoundActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

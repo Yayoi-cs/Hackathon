@@ -50,11 +50,11 @@ class SpeechRecognizerManager(
     private fun createRecognitionListenerStringStream(onResult : (String)-> Unit) : RecognitionListener {
         return object : RecognitionListener {
             override fun onRmsChanged(rmsdB: Float) {  }
-            override fun onReadyForSpeech(params: Bundle) { onResult("onReadyForSpeech") }
+            override fun onReadyForSpeech(params: Bundle) { /*onResult("onReadyForSpeech")*/ }
             override fun onBufferReceived(buffer: ByteArray) { /*onResult("onBufferReceived")*/ }
             override fun onPartialResults(partialResults: Bundle) { /*onResult("onPartialResults")*/ }
             override fun onEvent(eventType: Int, params: Bundle) { /*onResult("onEvent")*/ }
-            override fun onBeginningOfSpeech() { onResult("onBeginningOfSpeech") }
+            override fun onBeginningOfSpeech() { /*onResult("onBeginningOfSpeech")*/ }
             override fun onEndOfSpeech() {
                 speechRecognizer?.stopListening()
                 /*onResult("onEndOfSpeech")*/

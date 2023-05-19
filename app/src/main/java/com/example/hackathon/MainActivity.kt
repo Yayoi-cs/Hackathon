@@ -16,12 +16,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val nextButton = findViewById<Button>(R.id.sound_button)
-        nextButton.setOnClickListener{
-            val intent = Intent(this, SoundActivity::class.java)
-            startActivity(intent)
-        }
-
         val writeDiaryButton = findViewById<Button>(R.id.write_diary_button)
         writeDiaryButton.setOnClickListener{
             val intent = Intent(this, WriteDiaryActivity::class.java)
