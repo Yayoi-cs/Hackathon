@@ -8,9 +8,13 @@ class databaseoperation_GPT(context: Context) {
 
     private val databaseHelper: databaseopenhelper_GPT = databaseopenhelper_GPT(context)
 
-    fun insertData_GPT(sessionId: String, userText: String, gptText: String): Long {
+    fun insertData_GPT(
+        year_Argument: Int,month_Argument: Int,day_Argument: Int,
+        userText: String, gptText: String): Long {
         val values = ContentValues()
-        values.put(databaseopenhelper_GPT.COLUMN_SESSION_ID, sessionId)
+        values.put(databaseopenhelper_GPT.COLUMN_Year,year_Argument)
+        values.put(databaseopenhelper_GPT.COLUMN_Month,month_Argument)
+        values.put(databaseopenhelper_GPT.COLUMN_Day,day_Argument)
         values.put(databaseopenhelper_GPT.COLUMN_USER_TEXT, userText)
         values.put(databaseopenhelper_GPT.COLUMN_GPT_TEXT, gptText)
 

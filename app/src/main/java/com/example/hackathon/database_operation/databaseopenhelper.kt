@@ -18,7 +18,6 @@ class databaseopenhelper(context: Context) :
         const val COLUMN_MAIN_TEXT = "MainText"
         const val COLUMN_IMAGE = "Image"
         const val COLUMN_HAPPINESS = "Happiness"
-        const val COLUMN_SESSION_ID = "SessionID"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -30,8 +29,7 @@ class databaseopenhelper(context: Context) :
                 "$COLUMN_DATE TEXT, " +
                 "$COLUMN_MAIN_TEXT TEXT, " +
                 "$COLUMN_IMAGE TEXT, " +
-                "$COLUMN_HAPPINESS INTEGER, " +
-                "$COLUMN_SESSION_ID TEXT)"
+                "$COLUMN_HAPPINESS INTEGER)"
 
         db?.execSQL(createTableQuery)
     }
