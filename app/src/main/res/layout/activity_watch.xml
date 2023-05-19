@@ -50,27 +50,31 @@
         android:text=""
         android:textColor="#000000"
         android:textColorHint="#6E6E6E"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="544dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/happiness_view"
+        android:layout_width="119dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="212dp"
+        android:background="@drawable/textview_background"
+        android:elegantTextHeight="false"
+        android:ems="10"
+        android:hint="no text"
+        android:lines="12"
+        android:maxLines="1"
+        android:padding="10dp"
+        android:paddingLeft="10dp"
+        android:paddingBottom="10dp"
+        android:text=""
+        android:textColor="#000000"
+        android:textColorHint="#6E6E6E"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/satisfaction_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="116dp"
-        android:layout_marginTop="36dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view" />
 </androidx.constraintlayout.widget.ConstraintLayout>

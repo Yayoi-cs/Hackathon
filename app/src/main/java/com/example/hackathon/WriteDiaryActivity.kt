@@ -24,7 +24,6 @@ class WriteDiaryActivity : AppCompatActivity() {
 
     private lateinit var speechRecognizerManager: SpeechRecognizerManager
     private val PERMISSIONS_RECORD_AUDIO = 1000
-    private var texts: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +37,6 @@ class WriteDiaryActivity : AppCompatActivity() {
         supportActionBar?.setTitle("日記を書く")
         supportActionBar?.setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(this, R.color.component_background)))
 
-        val satisfactionCount = findViewById<EditText>(R.id.satisfaction_count)
 
         // 日付関係
         val dateView = findViewById<TextView>(R.id.date_text_view)
@@ -47,23 +45,26 @@ class WriteDiaryActivity : AppCompatActivity() {
         val formattedDate = dateFormat.format(currentDate)
         val calendar = Calendar.getInstance()
         calendar.time = currentDate
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        val year = calendar.get(Calendar.YEAR).toInt()
+        val month = calendar.get(Calendar.MONTH).toInt()
+        val day = calendar.get(Calendar.DAY_OF_MONTH).toInt()
         val dayOfWeek = SimpleDateFormat("EEE", Locale.ENGLISH).format(currentDate)
 
         dateView.text = formattedDate
 
-        // 本文入力するやつ
+        // 本文
+        var mainText: String = ""
         val editText = findViewById<EditText>(R.id.edit_text_view)
         editText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                texts = p0.toString()
-                Log.d("MainActivity", ":a:" + texts)
+                mainText = p0.toString()
+                Log.d("WriteDiaryActivity", ":a:" + mainText)
             }
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
+
+        val happinessView = findViewById<EditText>(R.id.happiness_view)
 
         val backButton = findViewById<Button>(R.id.back_button)
         backButton.setOnClickListener {
@@ -72,41 +73,24 @@ class WriteDiaryActivity : AppCompatActivity() {
 
         val completeButton = findViewById<Button>(R.id.complete_button)
         completeButton.setOnClickListener {
+            var happinessCount = happinessView.text.toString().toInt()
 
 //            var databaseOperation = DatabaseOperation(this)
-//            databaseOperation.insertData(year,month,day,dayOfWeek,texts,"example/example",satisfactionCount,"a")
+//            databaseOperation.insertData(year,month,day,dayOfWeek,mainText,"example/example",happinessCount,"a")
 
             val intent = Intent(this, WatchActivity::class.java)
-            intent.putExtra("TEXT", editText.text.toString())
-            intent.putExtra("SATISFACTION", satisfactionCount.text.toString())
+            intent.putExtra("TEXT", mainText)
+            intent.putExtra("HAPPINESS", happinessCount)
             intent.putExtra("DATE", formattedDate)
             intent.putExtra("YEAR", year)
             intent.putExtra("MONTH", month)
             intent.putExtra("DAY", day)
             startActivity(intent)
-//            Log.d("Write", ":a:" + editText.text.toString())
-//            Log.d("Write", ":b:" + satisfactionCount.text.toString())
         }
 
         val micButton = findViewById<FloatingActionButton>(R.id.mic_button)
-        micButton.setOnClickListener {
-
-        }
 
         speechRecognizerManager = SpeechRecognizerManager(micButton, editText)
-
-
-//        val progressIndicator = findViewById<CircularProgressIndicator>(R.id.progressIndicator)
-//        val maxProgress = 100 // プログレスバーの最大値
-//        val targetProgress = (maxProgress * 0.75).toInt() // 目標のプログレス値（40%）
-//        val indicatorSize = 200 // プログレスインジケータの大きさ
-//        val strokeWidth = 10 // プログレスインジケータの幅の太さ
-//        progressIndicator.max = maxProgress // プログレスバーの最大値を設定
-//        progressIndicator.progress = targetProgress // 目標のプログレス値を設定
-//        progressIndicator.setIndicatorColor(Color.RED)
-////        progressIndicator.isIndeterminate = true
-//        progressIndicator.indicatorSize = 360
-//        progressIndicator.scrollBarSize = 300
 
 
     }

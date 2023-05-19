@@ -25,11 +25,11 @@ class SpeechRecognizerManager(
 
 
     init {
-        val backgroundDrawable: Drawable? = recognize_start_button.background
-        var buttonBackground: Int = 0
-        if (backgroundDrawable is ColorDrawable) {
-            buttonBackground = backgroundDrawable.color
-        }
+//        val backgroundDrawable: Drawable? = recognize_start_button.background
+//        var buttonBackground: Int = 0
+//        if (backgroundDrawable is ColorDrawable) {
+//            buttonBackground = backgroundDrawable.color
+//        }
 
         recognize_start_button.setOnClickListener {
             isButtonOn = !isButtonOn
@@ -50,11 +50,11 @@ class SpeechRecognizerManager(
     private fun createRecognitionListenerStringStream(onResult : (String)-> Unit) : RecognitionListener {
         return object : RecognitionListener {
             override fun onRmsChanged(rmsdB: Float) {  }
-            override fun onReadyForSpeech(params: Bundle) { /*onResult("onReadyForSpeech")*/ }
+            override fun onReadyForSpeech(params: Bundle) { onResult("onReadyForSpeech") }
             override fun onBufferReceived(buffer: ByteArray) { /*onResult("onBufferReceived")*/ }
             override fun onPartialResults(partialResults: Bundle) { /*onResult("onPartialResults")*/ }
             override fun onEvent(eventType: Int, params: Bundle) { /*onResult("onEvent")*/ }
-            override fun onBeginningOfSpeech() { /*onResult("onBeginningOfSpeech")*/ }
+            override fun onBeginningOfSpeech() { onResult("onBeginningOfSpeech") }
             override fun onEndOfSpeech() {
                 speechRecognizer?.stopListening()
                 /*onResult("onEndOfSpeech")*/
@@ -88,9 +88,5 @@ class SpeechRecognizerManager(
                 RecognizerIntent.ACTION_RECOGNIZE_SPEECH
             )
         )
-    }
-
-    public fun getRecognizedText() : String {
-        return text_box
     }
 }
