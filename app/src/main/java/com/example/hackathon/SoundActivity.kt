@@ -36,10 +36,6 @@ class SoundActivity : AppCompatActivity() {
             finish()
         }
 
-        display_button.setOnClickListener {
-            main_text_view.text = speechRecognizerManager.getRecognizedText()
-        }
-
     }
 
     companion object {
