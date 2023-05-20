@@ -58,11 +58,12 @@ class SpeechRecognizerManager(
             override fun onEndOfSpeech() {
                 speechRecognizer?.stopListening()
                 /*onResult("onEndOfSpeech")*/
+                startSpeechListening()
             }
             override fun onError(error: Int) {
                 speechRecognizer?.stopListening()
                 /*onResult("onError")*/
-                startSpeechListening()
+//                startSpeechListening()
             }
             override fun onResults(results: Bundle) {
                 val stringArray = results.getStringArrayList(android.speech.SpeechRecognizer.RESULTS_RECOGNITION);

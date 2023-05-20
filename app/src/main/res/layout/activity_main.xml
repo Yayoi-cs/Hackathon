@@ -4,45 +4,91 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="354dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+<!--    <LinearLayout-->
+<!--        android:layout_width="409dp"-->
+<!--        android:layout_height="354dp"-->
+<!--        android:layout_marginTop="4dp"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="1.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World!" />
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Hello World!" />-->
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Hello Kotlin" />
+<!--        <TextView-->
+<!--            android:id="@+id/textView"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:text="Hello Kotlin" />-->
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Go to MainActivity2" />
-    </LinearLayout>
+<!--        <Button-->
+<!--            android:id="@+id/button"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:text="Go to MainActivity2" />-->
+<!--    </LinearLayout>-->
 
     <Button
         android:id="@+id/write_diary_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="274dp"
+        android:layout_height="85dp"
         android:layout_marginBottom="44dp"
-        android:text="write"
+        android:backgroundTint="@color/component_background"
+        android:text="日記を書く"
+        android:textColor="@color/component_foreground"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/see_calendar_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/see_calendar_button"
+        android:layout_width="214dp"
+        android:layout_height="67dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/component_background"
+        android:text="今までの日記を見る"
+        android:textColor="@color/component_foreground"
+        app:layout_constraintBottom_toTopOf="@+id/ai_chat_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/ai_chat_button"
+        android:layout_width="214dp"
+        android:layout_height="67dp"
+        android:layout_marginBottom="96dp"
+        android:backgroundTint="@color/component_background"
+        android:text="AIとおはなしする"
+        android:textColor="@color/component_foreground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.78"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="271dp"
+        android:layout_height="93dp"
+        android:layout_marginBottom="76dp"
+        android:gravity="center_horizontal"
+        android:text="AI日記帳"
+        android:textColor="#00796B"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/write_diary_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
