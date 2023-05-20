@@ -1,5 +1,6 @@
 package com.example.hackathon
 
+import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -41,13 +42,13 @@ class WatchActivity : AppCompatActivity() {
 
         val chatButton = findViewById<Button>(R.id.chat_button)
         chatButton.setOnClickListener {
-//            val intent = Intent(this, ChatActivity::class.java)
-//            intent.putExtra("TEXT", mainText)
-//            intent.putExtra("HAPPINESS", happiness)
-//            intent.putExtra("YEAR", year)
-//            intent.putExtra("MONTH", month)
-//            intent.putExtra("DAY", day)
-//            startActivity(intent)
+            val intent = Intent(this, Chat_Activity::class.java)
+            intent.putExtra("TEXT", mainText)
+            intent.putExtra("HAPPINESS", happinessCount)
+            intent.putExtra("YEAR", year)
+            intent.putExtra("MONTH", month)
+            intent.putExtra("DAY", day)
+            startActivity(intent)
         }
     }
 }

@@ -14,6 +14,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.hackathon.database_operation.DatabaseOperation
 import com.example.soundinput.SpeechRecognizerManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.text.SimpleDateFormat
@@ -75,8 +76,8 @@ class WriteDiaryActivity : AppCompatActivity() {
         completeButton.setOnClickListener {
             var happinessCount = happinessView.text.toString().toInt()
 
-//            var databaseOperation = DatabaseOperation(this)
-//            databaseOperation.insertData(year,month,day,dayOfWeek,mainText,"example/example",happinessCount,"a")
+            var databaseOperation = DatabaseOperation(this)
+            databaseOperation.insertData(year,month,day,dayOfWeek,mainText,"example/example",happinessCount,"a")
 
             val intent = Intent(this, WatchActivity::class.java)
             intent.putExtra("TEXT", mainText)

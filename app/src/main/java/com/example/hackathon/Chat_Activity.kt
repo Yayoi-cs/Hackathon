@@ -87,7 +87,7 @@ class Chat_Activity : AppCompatActivity() {
         textview_gpt.text=gptText
     }
     suspend fun chatWithGPT2(userText: String): String {
-        val apiKey = "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"
+        val apiKey = ""
         val url = "https://api.openai.com/v1/chat/completions"
         val mediaType = "application/json".toMediaType()
         val requestBody = JSONObject(

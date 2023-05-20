@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("HAPPINESS",95)
             intent.putExtra("YEAR",2023)
             intent.putExtra("MONTH",5)
-            intent.putExtra("DAY",21)
+            intent.putExtra("DAY",19)
             startActivity(intent)
         }
 
