@@ -13,10 +13,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val button = findViewById<Button>(R.id.button)
-
         button.setOnClickListener {
             val intent = Intent(this, Chat_Activity::class.java)
-
+            intent.putExtra("TEXT","今日は近所の公園で近所の子供たちと遊びました。")
+            intent.putExtra("HAPPINESS",95)
+            intent.putExtra("YEAR",2023)
+            intent.putExtra("MONTH",5)
+            intent.putExtra("DAY",21)
             startActivity(intent)
         }
 
