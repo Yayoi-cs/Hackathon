@@ -5,6 +5,7 @@ import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 
@@ -32,8 +33,11 @@ class WatchActivity : AppCompatActivity() {
         val mainTextView = findViewById<TextView>(R.id.main_text_view)
         mainTextView.text = mainText
 
-        val happinessView = findViewById<TextView>(R.id.happiness_view)
-        happinessView.text = happinessCount.toString()
+        val happinessStar = findViewById<ImageView>(R.id.happiness_star)
+        val lp = happinessStar.layoutParams
+        lp.height = (happinessCount)*2 + 80
+        lp.width = (happinessCount)*2 + 80
+        happinessStar.layoutParams = lp
 
         val backButton = findViewById<Button>(R.id.back_button)
         backButton.setOnClickListener{

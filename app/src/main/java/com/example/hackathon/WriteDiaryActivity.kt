@@ -10,6 +10,8 @@ import android.text.TextWatcher
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
+import android.widget.SeekBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -65,7 +67,22 @@ class WriteDiaryActivity : AppCompatActivity() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
 
-        val happinessView = findViewById<EditText>(R.id.happiness_view)
+        var happinessCount = 50
+        val happinessStar = findViewById<ImageView>(R.id.happiness_star)
+        val happinessSeekBar = findViewById<SeekBar>(R.id.happiness_seekber)
+        happinessSeekBar.setProgress(50)
+        changeHappinessStarSize(happinessStar, 50)
+        happinessSeekBar.setOnSeekBarChangeListener(
+            object : SeekBar.OnSeekBarChangeListener{
+                override fun onProgressChanged(
+                    seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                    changeHappinessStarSize(happinessStar, progress.toInt())
+                    happinessCount = progress.toInt()
+                }
+                override fun onStartTrackingTouch(seekBar: SeekBar) {}
+                override fun onStopTrackingTouch(seekBar: SeekBar) {}
+            }
+        )
 
         val backButton = findViewById<Button>(R.id.back_button)
         backButton.setOnClickListener {
@@ -74,7 +91,6 @@ class WriteDiaryActivity : AppCompatActivity() {
 
         val completeButton = findViewById<Button>(R.id.complete_button)
         completeButton.setOnClickListener {
-            var happinessCount = happinessView.text.toString().toInt()
 
             var databaseOperation = DatabaseOperation(this)
             databaseOperation.insertData(year,month,day,dayOfWeek,mainText,"example/example",happinessCount,"a")
@@ -94,6 +110,13 @@ class WriteDiaryActivity : AppCompatActivity() {
         speechRecognizerManager = SpeechRecognizerManager(micButton, editText)
 
 
+    }
+
+    private fun changeHappinessStarSize(happinessStar: ImageView, value: Int){
+        val lp = happinessStar.layoutParams
+        lp.height = value*2 + 80
+        lp.width = value*2 + 80
+        happinessStar.layoutParams = lp
     }
 
 
