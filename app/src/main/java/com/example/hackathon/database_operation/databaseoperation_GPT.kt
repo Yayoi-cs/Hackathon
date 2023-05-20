@@ -50,4 +50,42 @@ class databaseoperation_GPT(context: Context) {
             null
         )
     }
+    fun getDataByDate(year: Int, month: Int, day: Int): DatabaseModel_gpt? {
+        val db = databaseHelper.readableDatabase
+        val selection = "${databaseopenhelper_GPT.COLUMN_Year} = ? AND " +
+                "${databaseopenhelper_GPT.COLUMN_Month} = ? AND " +
+                "${databaseopenhelper_GPT.COLUMN_Day} = ?"
+        val selectionArgs = arrayOf(year.toString(), month.toString(), day.toString())
+
+        val cursor = db.query(
+            databaseopenhelper_GPT.TABLE_NAME,
+            null,
+            selection,
+            selectionArgs,
+            null,
+            null,
+            null
+        )
+
+        val data: DatabaseModel_gpt?
+
+        if (cursor.moveToFirst()) {
+            val userTextIndex = cursor.getColumnIndex(databaseopenhelper_GPT.COLUMN_USER_TEXT)
+            val gptTextIndex = cursor.getColumnIndex(databaseopenhelper_GPT.COLUMN_GPT_TEXT)
+
+            val userText = if (userTextIndex != -1) cursor.getString(userTextIndex) else ""
+            val gptText = if (gptTextIndex != -1) cursor.getString(gptTextIndex) else ""
+
+            data = DatabaseModel_gpt(userText, gptText)
+        } else {
+            data = null
+        }
+
+        cursor.close()
+        return data
+    }
+    data class DatabaseModel_gpt(
+        val userText: String,
+        val gptText: String
+    )
 }

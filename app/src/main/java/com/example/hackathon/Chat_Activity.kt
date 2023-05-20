@@ -23,7 +23,6 @@ import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
-import java.io.IOException
 import kotlinx.coroutines.Dispatchers
 import android.util.Log
 import android.widget.TextView
@@ -33,7 +32,7 @@ class Chat_Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat2)
         val recepter_text:String = intent.getStringExtra("TEXT").toString()
-        val recepter_satisfaction = intent.getIntExtra("SATISFACTION",0)
+        val recepter_satisfaction = intent.getIntExtra("HAPPINESS",0)
         val recepter_date = intent.getIntExtra("DATE",0)
         val recepter_year = intent.getIntExtra("YEAR",0)
         val recepter_Month = intent.getIntExtra("MONTH",0)
@@ -44,19 +43,16 @@ class Chat_Activity : AppCompatActivity() {
         //databaseOperation.insertData(2023,5,17,"Mon","メインサンプルテキスト","example/example",95,"a")
         //var databaseoperationGpt = databaseoperation_GPT(this)
         //databaseoperationGpt.insertData_GPT(2023,3,5,"sampleUserText","sampleGptText")
-        var databaseOperation_get = DatabaseOperation(this)
-        val getdata = databaseOperation_get.getDataByDate(2023,5,17)
-        val maintext = getdata?.mainText ?:""
-        val userText:String = "これは私の今日の日記です\n"+maintext
-        val textview_user = findViewById<TextView>(R.id.textView_user)
-        textview_user.text = userText
-        val textview_gpt = findViewById<TextView>(R.id.textView_gpt)
-        GlobalScope.launch {
-            val replay = chatWithGPT2(userText)
-            //Log.d("出力",replay)
-            withContext(Dispatchers.Main){
-                textview_gpt.text=replay
-            }
+
+        var databaseOperation_get_gptdata = databaseoperation_GPT(this)
+        val getdata = databaseOperation_get_gptdata.getDataByDate(recepter_year,recepter_Month,recepter_Day)
+        Log.d("出力",getdata.toString())
+        //val maintext = getdata?.mainText ?:""
+        if(getdata == null){
+            createnewchat(recepter_text,recepter_satisfaction,recepter_year,recepter_Month,recepter_Day)
+        }
+        else {
+            printoldchat(getdata.userText,getdata.gptText)
         }
         val gohomebutton = findViewById<Button>(R.id.Button_GoMainActivity)
         gohomebutton.setOnClickListener {
@@ -64,8 +60,34 @@ class Chat_Activity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+    fun createnewchat(recepter_text: String,recepter_satisfaction :Int,Year_r:Int,Month_r:Int,Day_r:Int){
+        val userText:String = "こんにちは\n以下は私の今日の日記です\n"+
+                recepter_text+"私の今日の幸福度を自己評価で表すと"+
+                recepter_satisfaction.toString()+"でした。\n100文字以内でほめてください"
+        val textview_user = findViewById<TextView>(R.id.textView_user)
+        textview_user.text = recepter_text
+        val textview_gpt = findViewById<TextView>(R.id.textView_gpt)
+        var replay :String = ""
+        GlobalScope.launch {
+            replay = chatWithGPT2(userText)
+            //Log.d("出力",replay)
+            withContext(Dispatchers.Main){
+                textview_gpt.text=replay
+                var databaseoperationGpt = databaseoperation_GPT(this@Chat_Activity)
+                databaseoperationGpt.insertData_GPT(Year_r,Month_r,Day_r,recepter_text,replay)
+            }
+        }
+
+    }
+
+    fun printoldchat(userText: String,gptText: String){
+        val textview_user = findViewById<TextView>(R.id.textView_user)
+        textview_user.text=userText
+        val textview_gpt = findViewById<TextView>(R.id.textView_gpt)
+        textview_gpt.text=gptText
+    }
     suspend fun chatWithGPT2(userText: String): String {
-        val apiKey = "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"
+        val apiKey = "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"
         val url = "https://api.openai.com/v1/chat/completions"
         val mediaType = "application/json".toMediaType()
         val requestBody = JSONObject(
@@ -89,6 +111,7 @@ class Chat_Activity : AppCompatActivity() {
             client.newCall(request).execute().use { response ->
                 val responseBody = response.body?.string()
                 val responseObj = JSONObject(responseBody)
+                Log.d("リスポンス",responseObj.toString())
                 val choicesArray = responseObj.getJSONArray("choices")
                 if (choicesArray.length() > 0) {
                     val firstChoiceObj = choicesArray.getJSONObject(0)
