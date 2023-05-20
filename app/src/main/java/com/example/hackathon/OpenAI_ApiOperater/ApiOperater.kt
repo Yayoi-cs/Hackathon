@@ -12,7 +12,7 @@ import org.json.JSONObject
 class ApiOperater {
 
     suspend fun chatWithGPT(userText: String): String {
-        val apiKey = "Discord上で送ったAPIキーを入れてください"
+        val apiKey = "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"
         val url = "https://api.openai.com/v1/chat/completions"
         val mediaType = "application/json".toMediaType()
         val requestBody = JSONObject(

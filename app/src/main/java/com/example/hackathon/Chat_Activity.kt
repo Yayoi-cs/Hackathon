@@ -69,7 +69,6 @@ class Chat_Activity : AppCompatActivity() {
                 databaseoperationGpt.insertData_GPT(Year_r,Month_r,Day_r,recepter_text,replay)
             }
         }
-
     }
 
     fun printoldchat(userText: String,gptText: String){
