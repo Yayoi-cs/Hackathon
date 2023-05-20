@@ -23,12 +23,9 @@ import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
-import java.io.IOException
 import kotlinx.coroutines.Dispatchers
 import android.util.Log
 import android.widget.TextView
-import org.w3c.dom.Text
-import kotlin.math.log
 
 class Chat_Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
