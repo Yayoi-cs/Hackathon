@@ -1,31 +1,22 @@
 package com.example.hackathon
 
-import android.annotation.SuppressLint
 import android.content.Intent
-import android.database.Cursor
-import android.nfc.Tag
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract.Data
 import android.widget.Button
-import androidx.appcompat.app.ActionBar
-import com.example.hackathon.database_operation.DatabaseOperation
-import com.example.hackathon.database_operation.databaseopenhelper
-import com.example.hackathon.database_operation.databaseopenhelper_GPT
 import com.example.hackathon.database_operation.databaseoperation_GPT
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
-import okhttp3.RequestBody
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import kotlinx.coroutines.Dispatchers
 import android.util.Log
 import android.widget.TextView
+import com.example.hackathon.OpenAI_ApiOperater.ApiOperater
 
 class Chat_Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,7 +60,8 @@ class Chat_Activity : AppCompatActivity() {
         val textview_gpt = findViewById<TextView>(R.id.textView_gpt)
         var replay :String = ""
         GlobalScope.launch {
-            replay = chatWithGPT2(userText)
+            var apioperater = ApiOperater()
+            replay = apioperater.chatWithGPT(userText)
             //Log.d("出力",replay)
             withContext(Dispatchers.Main){
                 textview_gpt.text=replay
