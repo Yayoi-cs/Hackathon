@@ -78,41 +78,4 @@ class Chat_Activity : AppCompatActivity() {
         val textview_gpt = findViewById<TextView>(R.id.textView_gpt)
         textview_gpt.text=gptText
     }
-    suspend fun chatWithGPT2(userText: String): String {
-        val apiKey = ""
-        val url = "https://api.openai.com/v1/chat/completions"
-        val mediaType = "application/json".toMediaType()
-        val requestBody = JSONObject(
-            mapOf(
-                "model" to "gpt-3.5-turbo",
-                "messages" to listOf(
-                    mapOf("role" to "user", "content" to userText)
-                )
-            )
-        ).toString()
-
-        val client = OkHttpClient()
-        val request = Request.Builder()
-            .url(url)
-            .addHeader("Content-Type", "application/json")
-            .addHeader("Authorization", "Bearer $apiKey")
-            .post(requestBody.toRequestBody(mediaType))
-            .build()
-
-        return withContext(Dispatchers.IO) {
-            client.newCall(request).execute().use { response ->
-                val responseBody = response.body?.string()
-                val responseObj = JSONObject(responseBody)
-                Log.d("リスポンス",responseObj.toString())
-                val choicesArray = responseObj.getJSONArray("choices")
-                if (choicesArray.length() > 0) {
-                    val firstChoiceObj = choicesArray.getJSONObject(0)
-                    val reply = firstChoiceObj.getJSONObject("message").getString("content").trim()
-                    reply
-                } else {
-                    ""
-                }
-            }
-        }
-    }
 }
