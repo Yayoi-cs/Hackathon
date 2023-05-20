@@ -8,17 +8,22 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.hackathon.database_operation.DatabaseOperation
+import com.example.hackathon.OpenAI_ApiOperater.ApiOperater
 import com.example.soundinput.SpeechRecognizerManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -106,10 +111,30 @@ class WriteDiaryActivity : AppCompatActivity() {
         }
 
         val micButton = findViewById<FloatingActionButton>(R.id.mic_button)
-
         speechRecognizerManager = SpeechRecognizerManager(micButton, editText)
 
+        val aiCorrectionProgressBar = findViewById<ProgressBar>(R.id.ai_correction_progressBar)
+        aiCorrectionProgressBar.visibility = View.GONE
 
+        val aiCorrection = findViewById<Button>(R.id.ai_correction)
+        aiCorrection.setOnClickListener {
+            aiCorrectionProgressBar.visibility = View.VISIBLE
+            val requestText = """
+                以下のテキストを簡潔に箇条書きにしてください。
+                その際冒頭に・をいれてください。
+
+                ${mainText}
+            """.trimIndent()
+
+            GlobalScope.launch {
+                var apioperater = ApiOperater()
+                val replay = apioperater.chatWithGPT(requestText)
+                //Log.d("出力",replay)
+                editText.setText(replay)
+                mainText = replay
+            }
+            aiCorrectionProgressBar.visibility = View.GONE
+        }
     }
 
     private fun changeHappinessStarSize(happinessStar: ImageView, value: Int){
