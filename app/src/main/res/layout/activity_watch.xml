@@ -38,7 +38,7 @@
         android:id="@+id/main_text_view"
         android:layout_width="341dp"
         android:layout_height="275dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="60dp"
         android:background="@drawable/textview_background"
         android:elegantTextHeight="false"
         android:ems="10"
@@ -57,12 +57,15 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="173dp"
-        android:layout_height="144dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="61dp"
+        android:layout_width="148dp"
+        android:layout_height="128dp"
+        android:layout_marginBottom="64dp"
+        app:layout_constraintBottom_toTopOf="@+id/back_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.133"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_text_view"
+        app:layout_constraintVertical_bias="0.56"
         app:srcCompat="@drawable/textview_background" />
 
     <ImageView
@@ -80,9 +83,12 @@
         android:id="@+id/happiness_text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="幸福度"
-        app:layout_constraintBottom_toTopOf="@+id/imageView3"
-        app:layout_constraintStart_toStartOf="@+id/imageView3" />
+        android:textColor="#777777"
+        app:layout_constraintEnd_toEndOf="@+id/imageView3"
+        app:layout_constraintHorizontal_bias="0.056"
+        app:layout_constraintStart_toStartOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

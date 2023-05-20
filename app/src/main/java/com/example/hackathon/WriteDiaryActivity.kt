@@ -18,10 +18,12 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.example.hackathon.database_operation.DatabaseOperation
 import com.example.hackathon.OpenAI_ApiOperater.ApiOperater
 import com.example.soundinput.SpeechRecognizerManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -126,14 +128,14 @@ class WriteDiaryActivity : AppCompatActivity() {
                 ${mainText}
             """.trimIndent()
 
-            GlobalScope.launch {
+            GlobalScope.launch(Dispatchers.Main) {
                 var apioperater = ApiOperater()
                 val replay = apioperater.chatWithGPT(requestText)
                 //Log.d("出力",replay)
                 editText.setText(replay)
                 mainText = replay
+                aiCorrectionProgressBar.visibility = View.GONE
             }
-            aiCorrectionProgressBar.visibility = View.GONE
         }
     }
 
