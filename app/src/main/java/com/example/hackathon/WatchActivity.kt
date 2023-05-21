@@ -9,24 +9,25 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 
+import com.example.hackathon.database_operation.DatabaseOperation
 class WatchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_watch)
 
         // テスト用にWriteDiaryActivityから取得しているが、実際は日付でDBから取得
-        val mainText = intent.getStringExtra("TEXT")
-        val happinessCount = intent.getIntExtra("HAPPINESS", 50)
-        val date = intent.getStringExtra("DATE")
+        //val mainText = intent.getStringExtra("TEXT")
+        //val happinessCount = intent.getIntExtra("HAPPINESS", 50)
+        //val date = intent.getStringExtra("DATE")
         val year = intent.getIntExtra("YEAR", 1111)
         val month = intent.getIntExtra("MONTH", 11)
         val day = intent.getIntExtra("DAY", 11)
 
-//        var databaseOperation_get = DatabaseOperation(this)
-//        val getdata = databaseOperation_get.getDataByDate(year,month,day)
-//        val mainText = getdata?.mainText ?:""
-//        val happinessCount = getdata?.happiness ?:""
-
+        var databaseOperation_get = DatabaseOperation(this)
+        val getdata = databaseOperation_get.getDataByDate(year,month,day)
+        val mainText = getdata?.mainText ?:""
+        val happinessCount:Int = getdata?.happiness ?:0
+        val date = getdata?.date ?:""
         supportActionBar?.setTitle("${date}")
         supportActionBar?.setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(this, R.color.component_background)))
 
