@@ -1,18 +1,11 @@
 package com.example.hackathon
 
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.hackathon.database_operation.DatabaseOperation
-import com.example.hackathon.database_operation.databaseopenhelper
 import android.widget.Button
-import android.widget.TextView
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.soundinput.SpeechRecognizerManager
 import android.app.DatePickerDialog
 import android.view.ContextThemeWrapper
 import android.widget.DatePicker
@@ -22,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        supportActionBar?.setTitle("")
+        supportActionBar?.setTitle("Home")
         supportActionBar?.setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(this, R.color.component_background)))
 
 //        val button = findViewById<Button>(R.id.button)
